@@ -1,42 +1,40 @@
-# Scoop Bucket Template
+# Heronite for Scoop
 
-<!-- Uncomment the following line after replacing placeholders -->
-<!-- [![Tests](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/ci.yml) [![Excavator](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml/badge.svg)](https://github.com/<username>/<bucketname>/actions/workflows/excavator.yml) -->
+[![Tests](https://github.com/RafaelGoulartB/scoop-heronite/actions/workflows/ci.yml/badge.svg)](https://github.com/RafaelGoulartB/scoop-heronite/actions/workflows/ci.yml) [![Excavator](https://github.com/RafaelGoulartB/scoop-heronite/actions/workflows/excavator.yml/badge.svg)](https://github.com/RafaelGoulartB/scoop-heronite/actions/workflows/excavator.yml)
 
-Template bucket for [Scoop](https://scoop.sh), the Windows command-line installer.
+The [Scoop](https://scoop.sh) bucket of [Heronite](https://heronite.app):
+every game you own, on Linux and Windows, in one fast native launcher.
 
-## How do I use this template?
+## Install
 
-1. Generate your own copy of this repository with the "Use this template"
-   button.
-2. Allow all GitHub Actions:
-   - Navigate to `Settings` - `Actions` - `General` - `Actions permissions`.
-   - Select `Allow all actions and reusable workflows`.
-   - Then `Save`.
-3. Workflow permissions:
-   - Navigate to `Settings` - `Actions` - `General` - `Workflow permissions`.
-   - Ensure `Read repository contents and packages permissions` is selected.
-   - Then `Save`.
-4. Document the bucket in `README.md`.
-5. Replace the placeholder repository string in `bin/auto-pr.ps1`.
-6. Create new manifests by copying `bucket/app-name.json.template` to
-   `bucket/<app-name>.json`.
-7. Commit and push changes.
-8. If you'd like your bucket to be indexed on `https://scoop.sh`, add the
-   topic `scoop-bucket` to your repository.
-
-## How do I install these manifests?
-
-After manifests have been committed and pushed, run the following:
-
-```pwsh
-scoop bucket add <bucketname> https://github.com/<username>/<bucketname>
-scoop install <bucketname>/<manifestname>
+```powershell
+scoop bucket add heronite https://github.com/RafaelGoulartB/scoop-heronite
+scoop install heronite/heronite
 ```
 
-## How do I contribute new manifests?
+## Update
 
-To make a new manifest contribution, please read the [Contributing
-Guide](https://github.com/ScoopInstaller/.github/blob/main/.github/CONTRIBUTING.md)
-and [App Manifests](https://github.com/ScoopInstaller/Scoop/wiki/App-Manifests)
-wiki page.
+```powershell
+scoop update            # refreshes the buckets
+scoop update heronite
+```
+
+Close Heronite, including from the tray, before updating: Scoop does not
+replace a program that is still running. Heronite tells you when a new
+version is out, and Scoop installs it.
+
+Your library and settings are in `%APPDATA%\heronite` and
+`%LOCALAPPDATA%\heronite`. They stay through updates and when you uninstall.
+
+## How this bucket works
+
+[`bucket/heronite.json`](bucket/heronite.json) installs the portable zip of
+each [release](https://github.com/RafaelGoulartB/Heronite/releases). Its
+source, and what each part does, is in Heronite's repository:
+[`packaging/scoop`](https://github.com/RafaelGoulartB/Heronite/tree/main/packaging/scoop).
+The Excavator workflow checks for new releases every 4 hours and updates the
+manifest, with the SHA-256 taken from the release's `SHA256SUMS`.
+
+Bugs in Heronite go to its
+[issues](https://github.com/RafaelGoulartB/Heronite/issues); problems with
+installing it through Scoop can go here.
