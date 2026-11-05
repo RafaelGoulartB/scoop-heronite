@@ -1,3 +1,5 @@
+# Updates bucket/heronite.json when Heronite publishes a new release:
+# checkver finds it, autoupdate writes its URL and SHA-256.
 name: Excavator
 
 on:
